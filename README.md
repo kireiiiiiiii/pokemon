@@ -1,3 +1,6 @@
+> [!WARNING]
+> This project is no longer maintained, as this was one of my first projects, and I moved on to other, bugger projects.
+
 <img src="./public/banners/banner.png" alt="banner" style="width: 100%;" />
 
 # Pokemon Game
@@ -6,42 +9,48 @@ Welcome to the world of Pokemon! This is a text based java game, where you can c
 
 ## Features:
 
--   Create your own account, and set a pasword, so noone can delete your pokemons
--   Create your own pokemon
--   Give it a custom name
--   Evolve it
--   Save your pokemon, for the next time you launch the program
--   Unlimited save slots
+- Create your own account, and set a pasword, so no one can access your pokemons
+- Create your own Pokemon
+- Give it a custom name
+- Evolve it
+- Save your Pokemon, for the next time you launch the program
+- Unlimited save slots
 
-## Featured evolve lines:
+## Pokemon evolve lines:
 
--   Pichu, Pikachu, Raichu
--   Eevee, Flareon
--   Bulbasaurus
--   Mew, MewTwo (3/9/2024)
+- Pichu, Pikachu, Raichu
+- Eevee, Flareon
+- Bulbasaurus
+- Mew, MewTwo (3/9/2024)
 
 ## Installation:
 
-1. Clone this repository to your local machine.
-2. Ensure you have Java Development Kit (JDK) installed.
-3. Compile and run the AppMain.java file
-4. Enjoy!
+1. Ensure you have Java Development Kit (JDK) installed
+2. Clone this repository using the following command:
+
+```shell
+git clone https://github.com/kireiiiiiiii/pokemon.git ./pokemon
+```
+
+3. Run the build script to build the jar file, and than run the jar file:
+
+```shell
+cd ./pokemon
+sh build.sh
+java -jar ./build/pokemon.jar
+```
 
 ## Credits:
 
--   This game was developed using Java.
--   Special thanks to the creators of the Pokemon franchise for inspiration.
--   Some assets used in the game are sourced from ascii art internet sites.
-
-## Contact Information:
-
-If you have any questions, feedback, or issues with the game, please contact me on my instagram <a href="https://www.instagram.com/_kireiiiiiiii">@\_kireiiiiiiii</a>
+- This game was developed using Java 21
+- This game directly uses characters from the Pokemon franchise
+- Some assets used in the game are sourced from ascii art internet sites
 
 ## Known Issues/Bugs:
 
--   Game save system is currently broken
--   Debug messages all over the console
+- Game save system is currently broken
+- The code is full of debug messages that were created in attempt to fix the save system
 
 ## Future Development Goals:
 
--   Development for this game is stopped, because I moved on to bigger projects.
+- Development for this game is stopped, because I moved on to bigger projects.
