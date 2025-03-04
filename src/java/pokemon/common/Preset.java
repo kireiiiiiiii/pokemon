@@ -1,7 +1,7 @@
 /*
- * Author: Matěj Šťastný
+ * Author: Matěj Šťastný aka Kirei
  * Date created: 12/17/2023
- * Github link: https://github.com/kireiiiiiiii/Pokemon
+ * Github link: https://github.com/kireiiiiiiii/pokemon
  *
  *
  *
@@ -24,16 +24,11 @@
  *
  */
 
-package src.java.common;
+package pokemon.common;
 
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Author: Matěj Šťastný
- * Description:
- * Object class for handeling all User preset related stuff
- */
 public class Preset {
 
     private User owner;
@@ -43,7 +38,7 @@ public class Preset {
 
     /**
      * Preset object constructor
-     * 
+     *
      * @param owner - User object of the owner of this preset
      */
     public Preset(User owner) {
@@ -56,7 +51,7 @@ public class Preset {
 
     /**
      * Returns the preset file
-     * 
+     *
      * @return File object of the preset file
      */
     public File getPreset() {
@@ -65,7 +60,7 @@ public class Preset {
 
     /**
      * Returns the user object of the owner of this preset
-     * 
+     *
      * @return Owner user object
      */
     public User getOwner() {
@@ -75,7 +70,7 @@ public class Preset {
     /**
      * Tests, if the file is a preset and not empty, if the file doesnt exist, it
      * will create it and return false
-     * 
+     *
      * @return - return false if the file should not load and true if it should load
      */
     public boolean isValidPreset() {
@@ -100,17 +95,13 @@ public class Preset {
     public void printContents() {
         for (int i = 1; i <= getPresetCount(); i++) {
             int currFileLine = i * 4;
-            System.out.println(
-                    "     " + i + ". " + Util.readFileLine(presetFile, currFileLine - 2).substring(0, 1).toUpperCase()
-                            + Util.readFileLine(presetFile, currFileLine - 2).substring(1) + " \033[3m"
-                            + Util.readFileLine(presetFile, currFileLine) + "\033[0m "
-                            + Util.readFileLine(presetFile, currFileLine - 1) + "HP");
+            System.out.println("     " + i + ". " + Util.readFileLine(presetFile, currFileLine - 2).substring(0, 1).toUpperCase() + Util.readFileLine(presetFile, currFileLine - 2).substring(1) + " \033[3m" + Util.readFileLine(presetFile, currFileLine) + "\033[0m " + Util.readFileLine(presetFile, currFileLine - 1) + "HP");
         }
     }
 
     /**
      * Reades the type of the pokemon, on the given preset index (NOT the file line)
-     * 
+     *
      * @param index - Preset index
      * @return String of the type on the index
      */
@@ -122,7 +113,7 @@ public class Preset {
 
     /**
      * Returns the path to this preset file
-     * 
+     *
      * @param owner - Owner of the preset file
      * @return String of the preset path
      */
@@ -135,7 +126,7 @@ public class Preset {
     /**
      * Sets the user file, according to user, if the file for the preset doesn't
      * exist it will create it
-     * 
+     *
      * @param user - user file of the current user
      * @return - returns the file of the preset of the user given in @param
      */
@@ -155,7 +146,7 @@ public class Preset {
 
     /**
      * Counts the number of presets, that are saved in the preset file
-     * 
+     *
      * @return A number of pokemon presets in the file
      */
     private int getPresetCount() {

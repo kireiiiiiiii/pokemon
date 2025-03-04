@@ -1,38 +1,17 @@
 /*
  * Author: Matěj Šťastný
  * Date created: 12/17/2023
- * Github link: https://github.com/kireiiiiiiii/Pokemon
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
+ * Github link: https://github.com/kireiiiiiiii/pokemon
  */
 
-package src.java.pokemons;
+package pokemon.pokemonlib;
 
 /**
  * Absract class for the specific pokemon classes.
- * 
  */
 public abstract class Pokemon implements PokemonInterface {
+
     protected final String COLOR_RESET = "\u001B[0m";
-    // protected variables without implementation
     protected String name;
     protected String image;
     protected String type;
@@ -43,9 +22,7 @@ public abstract class Pokemon implements PokemonInterface {
     protected int currHp;
     protected int maxHp;
 
-    // constructor
-    public Pokemon(String name, String type, String element, String image, String colour, String[] abilities,
-            String[] stageType, int currHp, int maxHp) {
+    public Pokemon(String name, String type, String element, String image, String colour, String[] abilities, String[] stageType, int currHp, int maxHp) {
         assert (abilities.length == 2) : "pokemonAbilities array doesn't have two elements (constructor)";
         this.name = name;
         this.image = image;
@@ -63,11 +40,7 @@ public abstract class Pokemon implements PokemonInterface {
     }
 
     public void stats() {
-        System.out.println("Hi, I am a " + type + ", my name is " + name + " and I am a " + colour
-                + element + COLOR_RESET + " type Pokemon!\nI currently have " + currHp + " HP!"
-                + "\nMy abilities are:\n\t--" + colour
-                + abilities[0] + COLOR_RESET
-                + "\n\t--" + colour + abilities[1] + COLOR_RESET);
+        System.out.println("Hi, I am a " + type + ", my name is " + name + " and I am a " + colour + element + COLOR_RESET + " type Pokemon!\nI currently have " + currHp + " HP!" + "\nMy abilities are:\n\t--" + colour + abilities[0] + COLOR_RESET + "\n\t--" + colour + abilities[1] + COLOR_RESET);
     }
 
     public void image() {

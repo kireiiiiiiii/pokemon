@@ -1,30 +1,10 @@
 /*
- * Author: Matěj Šťastný
+ * Author: Matěj Šťastný aka Kirei
  * Date created: 12/17/2023
- * Github link: https://github.com/kireiiiiiiii/Pokemon
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
+ * Github link: https://github.com/kireiiiiiiii/pokemon
  */
 
-package src.java.common;
+package pokemon.common;
 
 import java.io.Console;
 import java.io.File;
@@ -39,7 +19,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  * User object class
- * 
+ *
  */
 public class User {
     private String username;
@@ -89,7 +69,7 @@ public class User {
 
     /**
      * Path accesor
-     * 
+     *
      * @return Path of the UserFile directory
      */
     public String getPath() {
@@ -98,7 +78,7 @@ public class User {
 
     /**
      * Username accesor
-     * 
+     *
      * @return Username of the user saved in the object
      */
     public String getUsername() {
@@ -107,7 +87,7 @@ public class User {
 
     /**
      * User file accesor
-     * 
+     *
      * @return User data file object of the user saved in this object
      */
     public File getUserFile() {
@@ -119,7 +99,7 @@ public class User {
     /**
      * Gets the path of the UserFiles folder from the path of the directory of the
      * whole game
-     * 
+     *
      * @param path - String of the path of the directory of the game
      * @return String of the path of the UserFile folder
      */
@@ -130,7 +110,7 @@ public class User {
     /**
      * Checks, if the folder for user files exists, and if it does not, it will
      * create one
-     * 
+     *
      * @param path - path of the game
      */
     private void createUserFolder(String path) {
@@ -143,7 +123,7 @@ public class User {
     /**
      * Converts a string array to a String with elements being separated by coma and
      * space (', ')
-     * 
+     *
      * @param array - parameter - its the array that is going to be printed
      * @return return all the strings in the array separated by commas and spaces
      */
@@ -163,7 +143,7 @@ public class User {
     /**
      * Sets local variables of the objects from a user file according to
      * 'userExample.txt' file
-     * 
+     *
      * @param userFile
      */
     private void setDataFromFile(File userFile) {
@@ -173,15 +153,14 @@ public class User {
 
     /**
      * Prompts user to select an account
-     * 
+     *
      * @param console - Scanner with System.in
      * @param users   - array of names of current user accounts
      * @param path    - path of user files
      * @return - return a file object set to the file of the user selected
      */
     private File getUser(Scanner console, String[] users, String path) {
-        System.out.print(
-                "Which user do you select?:\n" + arrayToString(users, "\n", "--") + "\nNEW USER" + "\n\n> ");
+        System.out.print("Which user do you select?:\n" + arrayToString(users, "\n", "--") + "\nNEW USER" + "\n\n> ");
         String user = console.nextLine();
         while (!Util.laysInArray(user, users) && !user.equalsIgnoreCase("new user")) {
             System.out.print("This user does not exist...\nTry another one: ");
@@ -198,7 +177,7 @@ public class User {
 
     /**
      * This method lists all users (*USER.txt files) in the path given
-     * 
+     *
      * @param path - path being searched
      * @return - returnes an array of Strings of names of all users
      */
@@ -226,7 +205,7 @@ public class User {
 
     /**
      * Checks if file is a user data file (ends with 'USER.txt')
-     * 
+     *
      * @param file - name of the file its checking
      * @return - returnes true/false
      */
@@ -241,7 +220,7 @@ public class User {
     /**
      * Prompts user to create his new account, it will create a new file named
      * 'accountnameUSER.txt'
-     * 
+     *
      * @param users - array of current user accounts
      * @return - returns a file obj set to the file of the newly created user
      */
@@ -275,7 +254,7 @@ public class User {
     /**
      * It will delete the data file of the user, it will promt the user to confirm
      * its deletion
-     * 
+     *
      * @param currUser - user which file will be deleted
      * @param console  - scanner with System.in
      */
@@ -306,7 +285,7 @@ public class User {
 
     /**
      * Encrypts a string
-     * 
+     *
      * @param target - target string
      * @return - returns the encrypted String
      */
@@ -330,7 +309,7 @@ public class User {
 
     /**
      * Prompts user to enter password to the account he selected
-     * 
+     *
      * @param maxAttempts - maximum ammount of wrong password attempts
      * @return - returns boolean, true if password correct, false if not
      */
@@ -345,8 +324,7 @@ public class User {
             System.out.print("Enter password: ");
             input = encrypt(new String(passwordReader.readPassword()));
             while (!input.equals(password) && attempts < maxAttempts) {
-                System.out.print(
-                        "Incorrect  password, try again... \n" + (maxAttempts - attempts) + " attempts remaining: ");
+                System.out.print("Incorrect  password, try again... \n" + (maxAttempts - attempts) + " attempts remaining: ");
                 input = encrypt(new String(passwordReader.readPassword()));
                 attempts++;
             }
@@ -362,7 +340,7 @@ public class User {
 
     /**
      * Sets password to a user
-     * 
+     *
      * @param console - scanner with system.in
      * @return - returns a boolean, true if password settings succesful, false if
      *         not

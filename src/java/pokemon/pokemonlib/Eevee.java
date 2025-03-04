@@ -1,34 +1,14 @@
 /*
- * Author: Matěj Šťastný
+ * Author: Matěj Šťastný aka Kirei
  * Date created: 12/17/2023
- * Github link: https://github.com/kireiiiiiiii/Pokemon
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
+ * Github link: https://github.com/kireiiiiiiii/pokemon
  */
 
-package src.java.pokemons;
+package pokemon.pokemonlib;
 
 /**
  * Eevee pokemon class
- * 
+ *
  */
 public class Eevee extends Pokemon {
     private static String image = "Im sorry, but Eevee doesn't have a picture yet...";

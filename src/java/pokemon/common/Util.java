@@ -1,30 +1,10 @@
 /*
- * Author: Matěj Šťastný
+ * Author: Matěj Šťastný aka Kirei
  * Date created: 12/17/2023
- * Github link: https://github.com/kireiiiiiiii/Pokemon
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
+ * Github link: https://github.com/kireiiiiiiii/pokemon
  */
 
-package src.java.common;
+package pokemon.common;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,7 +17,6 @@ import java.util.Scanner;
 /**
  * Helper class with methods to help with the handeling of arrays, lists and
  * files, or formating strings
- * 
  */
 public class Util {
 
@@ -46,7 +25,7 @@ public class Util {
     /**
      * Returns a string of a line in a .txt file, prints error message if failed and
      * returns null
-     * 
+     *
      * @param file - the file its reading
      * @param line - number of line its reading
      * @return - string of the file read, null if the read was unsuccesfull
@@ -99,7 +78,7 @@ public class Util {
     /**
      * Converts a file to an ArrayList of Strings, putting every line of the file in
      * a separate element
-     * 
+     *
      * @param file - target file
      * @return - ArrayList of Strings
      */
@@ -120,7 +99,7 @@ public class Util {
     /**
      * Wrties the inside of an ArrayList into a file, fully clearing the file
      * beforehand. Puts every element of the list on a separate line
-     * 
+     *
      * @param list - ArrayList of Strings
      * @param file - target file
      * @throws IOException FileWriter exception
@@ -143,7 +122,7 @@ public class Util {
 
     /**
      * Counts the number of lines a file has
-     * 
+     *
      * @param file - the file you want to read
      * @return - returns a int with the lines count
      */
@@ -171,7 +150,7 @@ public class Util {
 
     /**
      * Searches a String array if it contains target String with ignoring the case
-     * 
+     *
      * @param search   - the string youre searching for
      * @param searched - the array that is being searched
      * @return - returns a boolean, true if found, false if not
@@ -188,7 +167,7 @@ public class Util {
     /**
      * Converts a string array to a String with elements being separated by coma and
      * space (', ')
-     * 
+     *
      * @param array - parameter - its the array that is going to be printed
      * @return return all the strings in the array separated by commas and spaces
      */

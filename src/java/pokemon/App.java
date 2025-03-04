@@ -1,55 +1,40 @@
 /*
- * Author: Matěj Šťastný
+ * Author: Matěj Šťastný aka Kirei
  * Date created: 12/17/2023
- * Github link: https://github.com/kireiiiiiiii/Pokemon
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
+ * Github link: https://github.com/kireiiiiiiii/pokemon
  */
 
-package src.java;
+package pokemon;
 
-import java.io.File;
 import java.io.Console;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Scanner;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import src.java.pokemons.*;
-import src.java.common.Preset;
-import src.java.common.User;
-import src.java.common.Util;
+import pokemon.common.Preset;
+import pokemon.common.User;
+import pokemon.common.Util;
+import pokemon.pokemonlib.Bulbasaur;
+import pokemon.pokemonlib.Eevee;
+import pokemon.pokemonlib.Flareon;
+import pokemon.pokemonlib.Mew;
+import pokemon.pokemonlib.Mewtwo;
+import pokemon.pokemonlib.Pichu;
+import pokemon.pokemonlib.Pikachu;
+import pokemon.pokemonlib.Pokemon;
+import pokemon.pokemonlib.Raichu;
 
-/**
- * Main class.
- * 
- */
-public class AppMain {
+public class App {
+
     public static final String COLORRESET = "\u001B[0m";
-    public static final String[] POKEMONLIST = { "pichu", "pikachu", "raichu", "bulbasaur", "eevee", "flareon", "mew",
-            "mewtwo" };
+    public static final String[] POKEMONLIST = { "pichu", "pikachu", "raichu", "bulbasaur", "eevee", "flareon", "mew", "mewtwo" };
     public static final String[] BASE_POKEMONS = { "pichu", "bulbasaur", "eevee", "mew" };
     public static final String[] CLASSLIST = { "Electric", "Seed", "Normal", "Fire" };
 
@@ -88,27 +73,15 @@ public class AppMain {
      * Prints the game banner ascii art into console
      */
     public static void printBanner() {
-        String[] welcomeArray = {
-                "|------------------------------------------------------------------------------------------|",
-                "|                                                                                          |",
-                "| __________       __                                      ________                        |",
-                "| \\______   \\____ |  | __ ____   _____   ____   ____      /  _____/_____    _____   ____   |",
-                "|  |     ___/  _ \\|  |/ // __ \\ /     \\ /  _ \\ /    \\    /   \\  ___\\__  \\  /     \\_/ __ \\  |",
-                "|  |    |  (  <_> )    <\\  ___/|  Y Y  (  <_> )   |  \\   \\    \\_\\  \\/ __ \\|  Y Y  \\  ___/  |",
-                "|  |____|   \\____/|__|_ \\\\___  >__|_|  /\\____/|___|  /    \\______  (____  /__|_|  /\\___  > |",
-                "|                      \\/    \\/      \\/            \\/            \\/     \\/      \\/     \\/  |",
-                "|                                                                                          |",
-                "|------------------------------------------------------------------------------------------|",
-                " "
-        };
+        String[] welcomeArray = { "|------------------------------------------------------------------------------------------|", "|                                                                                          |", "| __________       __                                      ________                        |", "| \\______   \\____ |  | __ ____   _____   ____   ____      /  _____/_____    _____   ____   |", "|  |     ___/  _ \\|  |/ // __ \\ /     \\ /  _ \\ /    \\    /   \\  ___\\__  \\  /     \\_/ __ \\  |", "|  |    |  (  <_> )    <\\  ___/|  Y Y  (  <_> )   |  \\   \\    \\_\\  \\/ __ \\|  Y Y  \\  ___/  |", "|  |____|   \\____/|__|_ \\\\___  >__|_|  /\\____/|___|  /    \\______  (____  /__|_|  /\\___  > |", "|                      \\/    \\/      \\/            \\/            \\/     \\/      \\/     \\/  |", "|                                                                                          |",
+                "|------------------------------------------------------------------------------------------|", " " };
         System.out.print(Util.arrayToString(welcomeArray, "\n", ""));
     }
 
     /**
      * Promts user to choose a pokemon type, than compares it with the list of
-     * current pokemons, if the pokemon is not
-     * in the list, it promts the user again
-     * 
+     * current pokemons, if the pokemon is not in the list, it promts the user again
+     *
      * @param console - Scanner
      * @param list    - list of pokemons that the user can select from
      * @return - returns a String of the pokemon type
@@ -122,8 +95,7 @@ public class AppMain {
                 System.out.println(pokemonType.substring(0, 1).toUpperCase() + pokemonType.substring(1) + " selected!");
                 break;
             } else {
-                System.out
-                        .println("Invalid Pokemon, you can only choose " + Util.arrayToString(list, ", ", "") + "...");
+                System.out.println("Invalid Pokemon, you can only choose " + Util.arrayToString(list, ", ", "") + "...");
             }
         }
         return pokemonType;
@@ -131,7 +103,7 @@ public class AppMain {
 
     /**
      * Promts the user to name his pokemon
-     * 
+     *
      * @param console - Scanner with system.in
      * @return - returns a string of the name
      */
@@ -149,7 +121,7 @@ public class AppMain {
 
     /**
      * Creates a pokemon object based on the parameters
-     * 
+     *
      * @param name - user defined name of the pokemon
      * @param type - type of the pokemon, determines the type of the object
      * @param hp   - hp of the pokemon
@@ -159,39 +131,39 @@ public class AppMain {
         type = type.toLowerCase();
         Pokemon pokemon = null;
         switch (type) {
-            case "pichu":
-                pokemon = new Pichu(name, hp);
-                break;
-            case "bulbasaur":
-                pokemon = new Bulbasaur(name, hp);
-                break;
-            case "eevee":
-                pokemon = new Eevee(name, hp);
-                break;
-            case "raichu":
-                pokemon = new Raichu(name, hp);
-                break;
-            case "pikachu":
-                pokemon = new Pikachu(name, hp);
-                break;
-            case "flareon":
-                pokemon = new Flareon(name, hp);
-                break;
-            case "mew":
-                pokemon = new Mew(name, hp);
-                break;
-            case "mewtwo":
-                pokemon = new Mewtwo(name, hp);
-                break;
-            default:
-                assert (false) : "changePokemon failed - wrong type: " + type + "|";
+        case "pichu":
+            pokemon = new Pichu(name, hp);
+            break;
+        case "bulbasaur":
+            pokemon = new Bulbasaur(name, hp);
+            break;
+        case "eevee":
+            pokemon = new Eevee(name, hp);
+            break;
+        case "raichu":
+            pokemon = new Raichu(name, hp);
+            break;
+        case "pikachu":
+            pokemon = new Pikachu(name, hp);
+            break;
+        case "flareon":
+            pokemon = new Flareon(name, hp);
+            break;
+        case "mew":
+            pokemon = new Mew(name, hp);
+            break;
+        case "mewtwo":
+            pokemon = new Mewtwo(name, hp);
+            break;
+        default:
+            assert (false) : "changePokemon failed - wrong type: " + type + "|";
         }
         return pokemon;
     }
 
     /**
      * Creates a new base pokemon by asking the user
-     * 
+     *
      * @param console - scanner with system in
      * @return Created pokemon object reference
      */
@@ -203,7 +175,7 @@ public class AppMain {
 
     /**
      * Prompts user to choose a pokemon from a list
-     * 
+     *
      * @param console - scanner with system.in
      * @param list    - list that he has to choose from
      * @return - string of type in lowercase
@@ -212,8 +184,7 @@ public class AppMain {
         System.out.print("Choose your pokemon!: ");
         String type = console.nextLine().toLowerCase();
         while (!Util.laysInArray(type, list)) {
-            System.out.println("You can't choose that pokemon...\nPlease choose from "
-                    + Util.arrayToString(list, "", ", ").substring(2) + "...");
+            System.out.println("You can't choose that pokemon...\nPlease choose from " + Util.arrayToString(list, "", ", ").substring(2) + "...");
             type = console.nextLine().toLowerCase();
         }
         System.out.println(type.substring(0, 1).toUpperCase() + type.substring(1) + " selected!");
@@ -222,9 +193,9 @@ public class AppMain {
 
     /**
      * Prompts user to select his user, if valid enter password, if valid and in
-     * less than number of attempts, than pass and assign file
-     * If user types create new user, that create new user
-     * 
+     * less than number of attempts, than pass and assign file If user types create
+     * new user, that create new user
+     *
      * @param console - scanner with system.in
      * @return - returns the file of the user
      */
@@ -255,7 +226,7 @@ public class AppMain {
 
     /**
      * User console
-     * 
+     *
      * @param pokemon    - current pokemon
      * @param userFile   - current user file
      * @param presetFile - current preset file
@@ -342,8 +313,7 @@ public class AppMain {
             } else {
                 System.out.println("I didn't understand...");
                 System.out.println("You can only use these commands:");
-                System.out.println(
-                        "     -Stats\n     -Ability 1\n     -Ability 2\n     -Evolve\n     -Image\n     -Swich Pokemon\n     -New Pokemon\n     -Save Pokemon\n     -Delete Pokemon\n     -Exit\n     -Delete account");
+                System.out.println("     -Stats\n     -Ability 1\n     -Ability 2\n     -Evolve\n     -Image\n     -Swich Pokemon\n     -New Pokemon\n     -Save Pokemon\n     -Delete Pokemon\n     -Exit\n     -Delete account");
             }
         }
     }
@@ -351,7 +321,7 @@ public class AppMain {
     /**
      * Evolves the pokemon, asks user for confirmation, if the pokemon has more
      * evolves, it asks the user for which one should be used
-     * 
+     *
      * @param pokemon - current pokemon used
      * @param console - scanner with system.in
      * @return - returns the pokemon that evolved, or null if the user didnt confirm
@@ -378,12 +348,10 @@ public class AppMain {
                 return null;
             }
         } else {
-            System.out.print("This pokemon can evolve to " + Util.arrayToString(stageType, " or ", "")
-                    + ".\nWhich one do you want to evolve to?:");
+            System.out.print("This pokemon can evolve to " + Util.arrayToString(stageType, " or ", "") + ".\nWhich one do you want to evolve to?:");
             String answerType = console.nextLine();
             while (!Util.laysInArray(answerType, stageType)) {
-                System.out.print(
-                        "You can only choose from " + Util.arrayToString(stageType, ",", "") + "...\nTry again: ");
+                System.out.print("You can only choose from " + Util.arrayToString(stageType, ",", "") + "...\nTry again: ");
                 answerType = console.nextLine();
             }
             System.out.print("Do you want to evolve your " + pokemon.getType() + " to " + answerType + "? (y/n): ");
@@ -405,7 +373,7 @@ public class AppMain {
     /**
      * Sets the user file, according to user, if the file for the preset doesn't
      * exist it will create it
-     * 
+     *
      * @param user - user file of the current user
      * @return - returns the file of the preset of the user given in @param
      */
@@ -426,7 +394,7 @@ public class AppMain {
 
     /**
      * Returs a number of preset slots that are in a file
-     * 
+     *
      * @param preset - preset file being scanned
      * @return - returns an int with the number of presets
      */
@@ -439,7 +407,7 @@ public class AppMain {
      * Prompts the user to enter a preset number according to a printed list of
      * pokemons from a preset file, the user also has an option to select 'new
      * pokemon'
-     * 
+     *
      * @param preset  - preset file from which the user should select
      * @param console - scanner with system.in
      * @return - returns an int of the index selected, -1 if the user selected 'new
@@ -481,7 +449,7 @@ public class AppMain {
     /**
      * Deletes pokemon data in a preset file according to an index, asks user for
      * confirmation
-     * 
+     *
      * @param preset - target preset file
      * @param index  - target index
      */
@@ -509,10 +477,10 @@ public class AppMain {
     }
 
     /**
-     * Saves variables of a pokemon according to the
-     * 'example.txt' file to the slot given by the index, if the index is greater
-     * than the number of presets saved, it will create a new slot and save
-     * 
+     * Saves variables of a pokemon according to the 'example.txt' file to the slot
+     * given by the index, if the index is greater than the number of presets saved,
+     * it will create a new slot and save
+     *
      * @param preset  - preset file the pokemon is being saved into
      * @param user    - user file to acces the username of user saving
      * @param pokemon - pokemon thats being saved
@@ -555,7 +523,7 @@ public class AppMain {
 
     /**
      * Converts a preset file to an array according to 'example.txt'
-     * 
+     *
      * @param preset1 - preset file
      * @param index   - index of the pokemon you want to load (starting at one for
      *                the first one)
@@ -591,7 +559,7 @@ public class AppMain {
     /**
      * Tests, if the file is a preset and not empty, if the file doesnt exist, it
      * will create it and return false
-     * 
+     *
      * @param preset  - file that it scans for
      * @param console - scanner with system.in for answer of the user
      * @return - return false if the file should not load and true if it should load
@@ -614,7 +582,7 @@ public class AppMain {
 
     /**
      * Finds the name of the java file it was executed in
-     * 
+     *
      * @return returns a string "fileName.java"
      */
     public static String getFileName() {
@@ -628,7 +596,7 @@ public class AppMain {
     /**
      * Finds the path of the folder, where the java file this method was executed in
      * is located
-     * 
+     *
      * @return String with path
      */
     public static String getGamePath() {
@@ -642,7 +610,7 @@ public class AppMain {
 
     /**
      * This method lists all users (*USER.txt files) in the path given
-     * 
+     *
      * @param path - path being searched
      * @return - returnes an array of Strings of names of all users
      */
@@ -667,7 +635,7 @@ public class AppMain {
 
     /**
      * Checks if file is a user data file (ends with 'USER.txt')
-     * 
+     *
      * @param file - name of the file its checking
      * @return - returnes true/false
      */
@@ -681,15 +649,14 @@ public class AppMain {
 
     /**
      * Prompts user to select an account
-     * 
+     *
      * @param console - Scanner with System.in
      * @param users   - array of names of current user accounts
      * @param path    - path of user files
      * @return - return a file object set to the file of the user selected
      */
     public static File getUser(Scanner console, String[] users, String path) {
-        System.out.print(
-                "Which user do you select?:\n" + Util.arrayToString(users, "\n", "--") + "\nNEW USER" + "\n\n> ");
+        System.out.print("Which user do you select?:\n" + Util.arrayToString(users, "\n", "--") + "\nNEW USER" + "\n\n> ");
         String user = console.nextLine();
         while (!Util.laysInArray(user, users) && !user.equalsIgnoreCase("new user")) {
             System.out.print("This user does not exist...\nTry another one: ");
@@ -707,7 +674,7 @@ public class AppMain {
     /**
      * Prompts user to create his new account, it will create a new file named
      * 'accountnameUSER.txt'
-     * 
+     *
      * @param console - scanner with System.in
      * @param users   - array of current user accounts
      * @return - returns a file obj set to the file of the newly created user
@@ -734,6 +701,7 @@ public class AppMain {
             System.out.println("User created succesfully!");
         } catch (IOException e) {
             System.out.println("There was an error while creating new user file");
+            e.printStackTrace();
         }
         return newUser;
     }
@@ -741,7 +709,7 @@ public class AppMain {
     /**
      * It will delete the data file of the user, it will promt the user to confirm
      * its deletion
-     * 
+     *
      * @param currUser - user which file will be deleted
      * @param console  - scanner with System.in
      */
@@ -772,7 +740,7 @@ public class AppMain {
 
     /**
      * Encrypts a string
-     * 
+     *
      * @param target - target string
      * @return - returns the encrypted String
      */
@@ -796,7 +764,7 @@ public class AppMain {
 
     /**
      * Prompts user to enter password to the account he selected
-     * 
+     *
      * @param user        - the file that the user selected
      * @param console     - scanner with system.in
      * @param maxAttempts - maximum ammount of wrong password attempts
@@ -813,8 +781,7 @@ public class AppMain {
             System.out.print("Enter password: ");
             input = encrypt(new String(passwordReader.readPassword()));
             while (!input.equals(password) && attempts < maxAttempts) {
-                System.out.print(
-                        "Incorrect  password, try again... \n" + (maxAttempts - attempts) + " attempts remaining: ");
+                System.out.print("Incorrect  password, try again... \n" + (maxAttempts - attempts) + " attempts remaining: ");
                 input = encrypt(new String(passwordReader.readPassword()));
                 attempts++;
             }
@@ -830,7 +797,7 @@ public class AppMain {
 
     /**
      * Sets password to a user
-     * 
+     *
      * @param user    - the user the method is setting the pasword to
      * @param console - scanner with system.in
      * @return - returns a boolean, true if password settings succesful, false if
