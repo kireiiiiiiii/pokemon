@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 mkdir -p build
 
 javac -d build $(find src/main/java -name "*.java")
