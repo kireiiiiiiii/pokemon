@@ -13,14 +13,14 @@ import java.io.IOException;
  * Represents a preset of a user. Handles the creation and management of the
  * preset file.
  */
-public class Preset { // TODO Rename to CharacterProfile
+public class CharacterProfile {
 
     private final User owner;
     private final File presetFile;
 
     // Constructor --------------------------------------------------------------
 
-    public Preset(User owner) {
+    public CharacterProfile(User owner) {
         this.owner = owner;
         this.presetFile = initializePresetFile();
     }

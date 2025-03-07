@@ -18,7 +18,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import pokemon.common.Preset;
+import pokemon.common.CharacterProfile;
 import pokemon.common.User;
 import pokemon.common.Util;
 import pokemon.pokemonlib.Bulbasaur;
@@ -45,7 +45,7 @@ public class App {
         String path = getGamePath();
 
         User user = new User(path);
-        Preset preset = new Preset(user);
+        CharacterProfile preset = new CharacterProfile(user);
 
         File userFile = user.getUserFile();
         File presetFile = preset.getPresetFile();
@@ -232,7 +232,7 @@ public class App {
      * @param presetFile - current preset file
      * @param index      - file preset slot index of the current pokemon
      */
-    public static void console(Pokemon pokemon, File userFile, File presetFile, int index, Preset preset, User user) {
+    public static void console(Pokemon pokemon, File userFile, File presetFile, int index, CharacterProfile preset, User user) {
         String commandInput;
         Scanner console = new Scanner(System.in);
         Pokemon evolvePokemon;
@@ -413,7 +413,7 @@ public class App {
      * @return - returns an int of the index selected, -1 if the user selected 'new
      *         pokemon'
      */
-    public static int getPresetIndex(Preset preset, Scanner console) {
+    public static int getPresetIndex(CharacterProfile preset, Scanner console) {
         String answer = "";
         if (!preset.isValidPreset()) {
             System.out.print("File does not exist");
