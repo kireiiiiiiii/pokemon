@@ -1,47 +1,45 @@
 @echo off
-setlocal enabledelayedexpansion
+setlocal
 
-REM Exit immediately if a command fails
-set "errorlevel="
-
-REM Check if javac is available
-where javac >nul 2>nul
-if errorlevel 1 (
-    echo Error: Java compiler (javac) is not available. Please install JDK and ensure it's in your PATH.
+echo Checking Java compiler...
+if not exist "%JAVA_HOME%\bin\javac.exe" (
+    echo Error: Java compiler not found. Ensure JDK is installed and JAVA_HOME is set.
     exit /b 1
 )
 
-REM Check if jar is available
-where jar >nul 2>nul
-if errorlevel 1 (
-    echo Error: JAR tool is not available. Please ensure the JDK is correctly installed and in your PATH.
-    exit /b 1
-)
-
-REM Create the build directory if it doesn't exist
+echo Creating build directory...
 if not exist build (
+    echo Running: mkdir build
     mkdir build
+    echo Build directory created.
+) else (
+    echo Build directory already exists.
 )
 
-REM Compile Java files
-for /R src\main\java %%f in (*.java) do (
-    set "java_files=!java_files! %%f"
+echo Checking Java files...
+dir /s /b "src\main\java\*.java"
+if %errorlevel% neq 0 (
+    echo Error: No Java files found.
+    exit /b 1
 )
-javac -d build %java_files%
-if errorlevel 1 (
+
+echo Compiling Java files...
+dir /s /b "src\main\java\*.java" > filelist.txt
+javac -d build @"filelist.txt"
+del filelist.txt
+
+if %errorlevel% neq 0 (
     echo Error: Compilation failed.
     exit /b 1
 )
 
-REM Create the MANIFEST.MF file
-echo Main-Class: pokemon.App > build\MANIFEST.MF
+echo Creating JAR file...
+echo Main-Class: pokemon.App > "build\MANIFEST.MF"
+jar cfm "build\pokemon.jar" "build\MANIFEST.MF" -C build .
 
-REM Create the JAR file
-jar cfm build\pokemon.jar build\MANIFEST.MF -C build .
-if errorlevel 1 (
+if %errorlevel% neq 0 (
     echo Error: Failed to create JAR file.
     exit /b 1
 )
 
-REM Output success message
-echo Build successful. JAR file is located at build\pokemon.jar
+echo Build successful.
