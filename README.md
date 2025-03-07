@@ -43,10 +43,20 @@ git clone https://github.com/kireiiiiiiii/pokemon.git ./pokemon
 
 3. Run the build script to build the jar file, and then run the jar file:
 
+**MACOS/LINUX:**
+
 ```bash
 cd ./pokemon
 sh build.sh
 java -jar ./build/pokemon.jar
+```
+
+**WINDOWS:**
+
+```cmd
+cd pokemon
+call build.bat
+java -jar build\pokemon.jar
 ```
 
 ## Credits 🙏:
