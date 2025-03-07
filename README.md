@@ -34,7 +34,7 @@ java -jar pokemon-your-version.jar
 
 ## Building from source 🛠️:
 
-1. Ensure you have the Java Development Kit (JDK) installed.
+1. Ensure you have the Java installed. This project can be run using Java 8 and higher.
 2. Clone this repository using the following command:
 
 ```bash
