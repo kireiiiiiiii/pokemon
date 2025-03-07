@@ -1,5 +1,5 @@
 > [!WARNING]
-> ⚠️ This project is no longer maintained, as it was one of my first projects, and I have moved on to other, bigger projects.
+> This project is no longer maintained, as it was one of my first projects, and I have moved on to other, bigger projects.
 
 <img src="https://github.com/kireiiiiiiii/pokemon/blob/main/assets/.github/banner.png?raw=true" alt="banner" style="width: 100%;" />
 
@@ -25,16 +25,25 @@ Welcome to the world of Pokemon! This is a terminal text-based Java game where y
 
 ## Installation 🛠️:
 
+1. Download the `.jar` package from the [latest release](https://github.com/kireiiiiiiii/pokemon/releases/latest). Choose a `.jar` that corresponds with your Java version.
+2. Run the jar by using this command in the directory where the `.jar` is:
+
+```bash
+java -jar pokemon-your-version.jar
+```
+
+## Building from source 🛠️:
+
 1. Ensure you have the Java Development Kit (JDK) installed.
 2. Clone this repository using the following command:
 
-```shell
+```bash
 git clone https://github.com/kireiiiiiiii/pokemon.git ./pokemon
 ```
 
 3. Run the build script to build the jar file, and then run the jar file:
 
-```shell
+```bash
 cd ./pokemon
 sh build.sh
 java -jar ./build/pokemon.jar
