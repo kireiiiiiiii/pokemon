@@ -1,5 +1,5 @@
-> [!WARNING]
-> This project is no longer maintained, as it was one of my first projects, and I have moved on to other, bigger projects.
+> [!NOTE]
+> This project represents its final, complete version and will likely not receive further updates as I’ve moved on to larger projects.
 
 <img src="https://github.com/kireiiiiiiii/pokemon/blob/main/assets/.github/banner.png?raw=true" alt="banner" style="width: 100%;" />
 
