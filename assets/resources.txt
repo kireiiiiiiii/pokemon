@@ -1,0 +1,5 @@
+List of websites & resources used during development:
+
+https://emojicombos.com/pokemon-dot-art - pokemon ascii arts
+https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Pokemon%20%20%20Game - ascii text
+https://stackoverflow.com/questions/10819469/hide-input-on-command-line - hide password tutorial
