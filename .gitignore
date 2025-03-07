@@ -4,6 +4,5 @@
 # macOS
 .DS_Store
 
-# Data & build files
-/data
+# Build files
 /build

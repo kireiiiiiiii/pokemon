@@ -17,6 +17,25 @@ public class Util {
 
     // File handeling -----------------------------------------------------------
 
+    public static String getApplicationDataFolder() {
+        String os = System.getProperty("os.name").toLowerCase();
+        String appDataFolder = System.getenv("APPDATA");
+
+        if (os.contains("mac")) {
+            appDataFolder = System.getProperty("user.home") + File.separator + "Library" + File.separator + "Application Support";
+        } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
+            appDataFolder = System.getProperty("user.home") + File.separator + ".config";
+        } else if (appDataFolder == null) {
+            appDataFolder = File.separator;
+        }
+
+        File folder = new File(appDataFolder);
+        if (!folder.exists() && !folder.mkdirs()) {
+            throw new RuntimeException("Failed to create application data folder at: " + appDataFolder);
+        }
+        return appDataFolder;
+    }
+
     /**
      * Reads a specific line from a file.
      *

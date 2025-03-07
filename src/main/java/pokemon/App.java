@@ -42,7 +42,7 @@ public class App {
         printBanner();
         Pokemon pokemon = null;
         Scanner console = new Scanner(System.in);
-        String path = getGamePath();
+        String path = getAppDataFolderPath();
 
         User user = new User(path);
         CharacterProfile preset = new CharacterProfile(user);
@@ -600,14 +600,9 @@ public class App {
      *
      * @return String with the path
      */
-    public static String getGamePath() {
-        try {
-            File file = new File(App.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-            return file.getParentFile().getParentFile().getPath();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public static String getAppDataFolderPath() {
+        return Util.getApplicationDataFolder() + File.separator + "kireiiiiiiii.pokemon";
+
     }
 
     /**
