@@ -1,7 +1,7 @@
 > [!WARNING]
 > This project is no longer maintained, as it was one of my first projects, and I have moved on to other, bigger projects.
 
-<img src="./public/banners/banner.png" alt="banner" style="width: 100%;" />
+<img src="https://github.com/kireiiiiiiii/pokemon/blob/main/assets/.github/banner.png?raw=true" alt="banner" style="width: 100%;" />
 
 # Pokemon Game
 
