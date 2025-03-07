@@ -18,18 +18,18 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import pokemon.abstracts.Pokemon;
 import pokemon.common.CharacterProfile;
 import pokemon.common.User;
 import pokemon.common.Util;
-import pokemon.pokemonlib.Bulbasaur;
-import pokemon.pokemonlib.Eevee;
-import pokemon.pokemonlib.Flareon;
-import pokemon.pokemonlib.Mew;
-import pokemon.pokemonlib.Mewtwo;
-import pokemon.pokemonlib.Pichu;
-import pokemon.pokemonlib.Pikachu;
-import pokemon.pokemonlib.Pokemon;
-import pokemon.pokemonlib.Raichu;
+import pokemon.library.Bulbasaur;
+import pokemon.library.Eevee;
+import pokemon.library.Flareon;
+import pokemon.library.Mew;
+import pokemon.library.Mewtwo;
+import pokemon.library.Pichu;
+import pokemon.library.Pikachu;
+import pokemon.library.Raichu;
 
 public class App {
 

@@ -4,7 +4,9 @@
  * Github link: https://github.com/kireiiiiiiii/pokemon
  */
 
-package pokemon.pokemonlib;
+package pokemon.library;
+
+import pokemon.abstracts.Pokemon;
 
 public class Raichu extends Pokemon {
     private static String[] imageArray = { //

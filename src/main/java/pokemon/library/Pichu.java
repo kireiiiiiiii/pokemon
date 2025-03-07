@@ -4,7 +4,9 @@
  * Github link: https://github.com/kireiiiiiiii/pokemon
  */
 
-package pokemon.pokemonlib;
+package pokemon.library;
+
+import pokemon.abstracts.Pokemon;
 
 public final class Pichu extends Pokemon {
     private static String[] imageArray = { //

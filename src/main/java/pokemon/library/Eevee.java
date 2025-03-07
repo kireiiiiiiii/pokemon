@@ -4,7 +4,9 @@
  * Github link: https://github.com/kireiiiiiiii/pokemon
  */
 
-package pokemon.pokemonlib;
+package pokemon.library;
+
+import pokemon.abstracts.Pokemon;
 
 /**
  * Eevee pokemon class

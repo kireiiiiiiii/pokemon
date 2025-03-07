@@ -4,7 +4,7 @@
  * Github link: https://github.com/kireiiiiiiii/pokemon
  */
 
-package pokemon.pokemonlib;
+package pokemon.abstracts;
 
 /**
  * Interface for the pokemon classes

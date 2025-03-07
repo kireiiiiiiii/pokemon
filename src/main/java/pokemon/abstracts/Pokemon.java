@@ -4,7 +4,7 @@
  * Github link: https://github.com/kireiiiiiiii/pokemon
  */
 
-package pokemon.pokemonlib;
+package pokemon.abstracts;
 
 /**
  * Absract class for the specific pokemon classes.
@@ -39,26 +39,32 @@ public abstract class Pokemon implements PokemonInterface {
         this.maxHp = maxHp;
     }
 
+    @Override
     public void stats() {
         System.out.println("Hi, I am a " + type + ", my name is " + name + " and I am a " + colour + element + COLOR_RESET + " type Pokemon!\nI currently have " + currHp + " HP!" + "\nMy abilities are:\n\t--" + colour + abilities[0] + COLOR_RESET + "\n\t--" + colour + abilities[1] + COLOR_RESET);
     }
 
+    @Override
     public void image() {
         System.out.println(image);
     }
 
+    @Override
     public void ability1() {
         System.out.println(type + " " + name + " uses " + colour + abilities[0] + COLOR_RESET + "!");
     }
 
+    @Override
     public void ability2() {
         System.out.println(type + " " + name + " uses " + colour + abilities[1] + COLOR_RESET + "!");
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public int getHp() {
         return currHp;
     }
