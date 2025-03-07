@@ -2,26 +2,6 @@
  * Author: Matěj Šťastný aka Kirei
  * Date created: 12/17/2023
  * Github link: https://github.com/kireiiiiiiii/pokemon
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
  */
 
 package pokemon.common;
@@ -29,127 +9,86 @@ package pokemon.common;
 import java.io.File;
 import java.io.IOException;
 
-public class Preset {
+/**
+ * Represents a preset of a user. Handles the creation and management of the
+ * preset file.
+ */
+public class Preset { // TODO Rename to CharacterProfile
 
-    private User owner;
-    private File presetFile;
+    private final User owner;
+    private final File presetFile;
 
-    /* CONSTRUCTORS */
+    // Constructor --------------------------------------------------------------
 
-    /**
-     * Preset object constructor
-     *
-     * @param owner - User object of the owner of this preset
-     */
     public Preset(User owner) {
         this.owner = owner;
-        String path = getPresetPath(owner);
-        presetFile = setPreset(path);
+        this.presetFile = initializePresetFile();
     }
 
-    /* ACCESORS */
+    // Accessors ----------------------------------------------------------------
 
-    /**
-     * Returns the preset file
-     *
-     * @return File object of the preset file
-     */
-    public File getPreset() {
+    public File getPresetFile() {
         return presetFile;
     }
 
-    /**
-     * Returns the user object of the owner of this preset
-     *
-     * @return Owner user object
-     */
     public User getOwner() {
         return owner;
     }
 
-    /**
-     * Tests, if the file is a preset and not empty, if the file doesnt exist, it
-     * will create it and return false
-     *
-     * @return - return false if the file should not load and true if it should load
-     */
     public boolean isValidPreset() {
-        if (!presetFile.exists()) {
-            try {
-                presetFile.createNewFile();
-            } catch (IOException e) {
-                System.out.println("An error occured when creating the file: " + presetFile.getName());
-            }
-            return false;
-        } else if (presetFile.length() == 0) {
-            return false;
-        } else if (!Util.readFileLine(presetFile, 1).equalsIgnoreCase(owner.getUsername())) {
+        if (!presetFile.exists() || presetFile.length() == 0) {
+            createFileIfNotExists(presetFile);
             return false;
         }
-        return true;
+        return Util.readFileLine(presetFile, 1).equalsIgnoreCase(owner.getUsername());
     }
 
-    /**
-     * Prints the contents of the preset file in a list into console
-     */
     public void printContents() {
-        for (int i = 1; i <= getPresetCount(); i++) {
+        int presetCount = getPresetCount();
+        for (int i = 1; i <= presetCount; i++) {
             int currFileLine = i * 4;
-            System.out.println("     " + i + ". " + Util.readFileLine(presetFile, currFileLine - 2).substring(0, 1).toUpperCase() + Util.readFileLine(presetFile, currFileLine - 2).substring(1) + " \033[3m" + Util.readFileLine(presetFile, currFileLine) + "\033[0m " + Util.readFileLine(presetFile, currFileLine - 1) + "HP");
+            String name = Util.readFileLine(presetFile, currFileLine - 2);
+            String type = Util.readFileLine(presetFile, currFileLine);
+            String hp = Util.readFileLine(presetFile, currFileLine - 1);
+            System.out.printf("     %d. %s [3m%s[0m %sHP%n", i, capitalizeFirstLetter(name), type, hp);
         }
     }
 
-    /**
-     * Reades the type of the pokemon, on the given preset index (NOT the file line)
-     *
-     * @param index - Preset index
-     * @return String of the type on the index
-     */
     public String getTypeOnIndex(int index) {
         return Util.readFileLine(presetFile, index * 4);
     }
 
-    /* PRIVATE METHODS */
+    // Private ------------------------------------------------------------------
 
-    /**
-     * Returns the path to this preset file
-     *
-     * @param owner - Owner of the preset file
-     * @return String of the preset path
-     */
-    private String getPresetPath(User owner) {
-        String path = owner.getPath();
-        String username = owner.getUsername();
-        return path + "/" + username + "PRESET.txt";
+    private File initializePresetFile() {
+        File presetFile = new File(getPresetPath());
+        createFileIfNotExists(presetFile);
+        return presetFile;
     }
 
-    /**
-     * Sets the user file, according to user, if the file for the preset doesn't
-     * exist it will create it
-     *
-     * @param user - user file of the current user
-     * @return - returns the file of the preset of the user given in @param
-     */
-    private File setPreset(String path) {
-        File preset = new File(path);
-        if (preset.exists()) {
-            return preset;
-        } else {
+    private String getPresetPath() {
+        return owner.getUserFile().getParent() + File.separator + owner.getUsername() + "PRESET.txt";
+    }
+
+    private void createFileIfNotExists(File file) {
+        if (!file.exists()) {
             try {
-                preset.createNewFile();
+                file.createNewFile();
             } catch (IOException e) {
-                System.out.println("IO error");
+                System.err.println("Error creating preset file: " + file.getAbsolutePath());
+                e.printStackTrace();
             }
-            return preset;
         }
     }
 
-    /**
-     * Counts the number of presets, that are saved in the preset file
-     *
-     * @return A number of pokemon presets in the file
-     */
     private int getPresetCount() {
         return Util.countFileLines(presetFile) / 4;
+    }
+
+    private String capitalizeFirstLetter(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        return Character.toUpperCase(str.charAt(0)) + str.substring(1);
     }
 }

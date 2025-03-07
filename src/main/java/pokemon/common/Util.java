@@ -1,9 +1,3 @@
-/*
- * Author: Matěj Šťastný aka Kirei
- * Date created: 12/17/2023
- * Github link: https://github.com/kireiiiiiiii/pokemon
- */
-
 package pokemon.common;
 
 import java.io.File;
@@ -12,150 +6,124 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
- * Helper class with methods to help with the handeling of arrays, lists and
- * files, or formating strings
+ * Utility class for handling arrays, lists, and files, as well as formatting
+ * strings.
  */
 public class Util {
 
-    /* FILE HANDELING METHODS */
+    // File handeling -----------------------------------------------------------
 
     /**
-     * Returns a string of a line in a .txt file, prints error message if failed and
-     * returns null
+     * Reads a specific line from a file.
      *
-     * @param file - the file its reading
-     * @param line - number of line its reading
-     * @return - string of the file read, null if the read was unsuccesfull
+     * @param file The file to read from.
+     * @param line The line number to retrieve (1-based index).
+     * @return The content of the specified line, or null if an error occurs.
      */
     public static String readFileLine(File file, int line) {
-        int lines = 0;
         if (!file.exists()) {
-            System.out.println("File does not exist");
+            System.err.println("Error: File does not exist - " + file.getAbsolutePath());
             return null;
         }
         if (line <= 0) {
-            System.out.println("Not valid line (<=0)");
+            System.err.println("Error: Invalid line number (must be >= 1)");
             return null;
         }
-        try {
-            Scanner fileScanner = new Scanner(file);
-            while (fileScanner.hasNextLine()) {
-                fileScanner.nextLine();
-                lines++;
-            }
-            fileScanner.close();
-        } catch (IOException e) {
-            System.out.print("There was an error when handeling the file");
-            return null;
-        }
-        if (line > lines) {
-            // System.out.println("Line out of index");
-            return null;
-        }
-        try {
+
+        try (Scanner scanner = new Scanner(file)) {
             int currLine = 1;
-            Scanner fileScanner = new Scanner(file);
-            String currString = "";
-            while (fileScanner.hasNextLine()) {
-                currString = fileScanner.nextLine();
+            while (scanner.hasNextLine()) {
+                String content = scanner.nextLine();
                 if (currLine == line) {
-                    fileScanner.close();
-                    return currString;
+                    return content;
                 }
                 currLine++;
             }
-            fileScanner.close();
         } catch (IOException e) {
-            System.out.print("There was an error when handeling the file");
-            return null;
+            System.err.println("Error reading file: " + file.getAbsolutePath());
         }
         return null;
     }
 
     /**
-     * Converts a file to an ArrayList of Strings, putting every line of the file in
-     * a separate element
+     * Converts a file to a list of strings, where each line becomes an element.
      *
-     * @param file - target file
-     * @return - ArrayList of Strings
+     * @param file The target file.
+     * @return A list containing the file's contents, or null if an error occurs.
      */
-    public static ArrayList<String> fileToList(File file) {
-        ArrayList<String> contents = new ArrayList<String>();
-        try {
-            Scanner scanner = new Scanner(file);
+    public static List<String> fileToList(File file) {
+        if (!file.exists()) {
+            System.err.println("Error: File not found - " + file.getAbsolutePath());
+            return null;
+        }
+
+        List<String> contents = new ArrayList<>();
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 contents.add(scanner.nextLine());
             }
-            scanner.close();
         } catch (FileNotFoundException e) {
+            System.err.println("Error: File not accessible - " + file.getAbsolutePath());
             return null;
         }
         return contents;
     }
 
     /**
-     * Wrties the inside of an ArrayList into a file, fully clearing the file
-     * beforehand. Puts every element of the list on a separate line
+     * Writes the contents of a list to a file, replacing any existing content.
      *
-     * @param list - ArrayList of Strings
-     * @param file - target file
-     * @throws IOException FileWriter exception
+     * @param list The list of strings to write.
+     * @param file The target file.
+     * @throws IOException If an I/O error occurs.
      */
-    public static void listToFile(ArrayList<String> list, File file) throws IOException {
-        FileWriter fw = new FileWriter(file, false);
-        PrintWriter pw = new PrintWriter(fw, false);
-        pw.flush();
-        pw.close();
-        fw.close();
-        fw = new FileWriter(file, true);
-        for (int i = 0; i < list.size(); i++) {
-            fw.write(list.get(i));
-            if (i != list.size() - 1) {
-                fw.write("\n");
+    public static void listToFile(List<String> list, File file) throws IOException {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(file, false))) {
+            for (String line : list) {
+                writer.println(line);
             }
         }
-        fw.close();
     }
 
     /**
-     * Counts the number of lines a file has
+     * Counts the number of lines in a file.
      *
-     * @param file - the file you want to read
-     * @return - returns a int with the lines count
+     * @param file The file to count lines in.
+     * @return The number of lines, or -1 if the file does not exist or cannot be
+     *         read.
      */
     public static int countFileLines(File file) {
         if (!file.exists()) {
-            System.out.print("File does not exist");
+            System.err.println("Error: File does not exist - " + file.getAbsolutePath());
             return -1;
         }
+
         int lines = 0;
-        try {
-            Scanner fileScanner = new Scanner(file);
-            while (fileScanner.hasNextLine()) {
-                fileScanner.nextLine();
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                scanner.nextLine();
                 lines++;
             }
-            fileScanner.close();
         } catch (IOException e) {
-            System.out.print("There was an error when handeling the file");
+            System.err.println("Error reading file: " + file.getAbsolutePath());
             return -1;
         }
         return lines;
     }
 
-    /* ARRAY HANDELING METHODS */
+    // Array handeling ----------------------------------------------------------
 
     /**
-     * Searches a String array if it contains target String with ignoring the case
+     * Checks if a string exists in an array, ignoring case.
      *
-     * @param search   - the string youre searching for
-     * @param searched - the array that is being searched
-     * @return - returns a boolean, true if found, false if not
+     * @param search   The string to search for.
+     * @param searched The array to search in.
+     * @return True if found, false otherwise.
      */
-    public static boolean laysInArray(String search, String[] searched) {
+    public static boolean containsIgnoreCase(String search, String[] searched) {
         for (String element : searched) {
             if (search.equalsIgnoreCase(element)) {
                 return true;
@@ -165,22 +133,26 @@ public class Util {
     }
 
     /**
-     * Converts a string array to a String with elements being separated by coma and
-     * space (', ')
+     * Converts an array of strings into a single formatted string.
      *
-     * @param array - parameter - its the array that is going to be printed
-     * @return return all the strings in the array separated by commas and spaces
+     * @param array   The array to convert.
+     * @param divider The separator between elements.
+     * @param prefix  A prefix to add before each element.
+     * @return A formatted string.
      */
-    public static String arrayToString(String[] array, String divider, String start) {
-        int lenght = array.length - 1;
-        if (lenght < 0) {
+    public static String arrayToString(String[] array, String divider, String prefix) {
+        if (array == null || array.length == 0) {
             return "";
         }
-        String output = "";
-        for (int i = 0; i < lenght; i++) {
-            output += start + array[i] + divider;
+
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            output.append(prefix).append(array[i]);
+            if (i < array.length - 1) {
+                output.append(divider);
+            }
         }
-        output += start + array[lenght];
-        return output;
+        return output.toString();
     }
+
 }

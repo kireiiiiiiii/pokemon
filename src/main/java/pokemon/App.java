@@ -10,8 +10,8 @@ import java.io.Console;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.crypto.Cipher;
@@ -48,7 +48,7 @@ public class App {
         Preset preset = new Preset(user);
 
         File userFile = user.getUserFile();
-        File presetFile = preset.getPreset();
+        File presetFile = preset.getPresetFile();
         int presetIndex = 0;
 
         // loads preset if preset file exists and user didn't select new pokemon in
@@ -91,7 +91,7 @@ public class App {
         String pokemonType;
         while (true) {
             pokemonType = console.nextLine();
-            if (Util.laysInArray(pokemonType, list)) {
+            if (Util.containsIgnoreCase(pokemonType, list)) {
                 System.out.println(pokemonType.substring(0, 1).toUpperCase() + pokemonType.substring(1) + " selected!");
                 break;
             } else {
@@ -183,7 +183,7 @@ public class App {
     public static String getType(Scanner console, String[] list) {
         System.out.print("Choose your pokemon!: ");
         String type = console.nextLine().toLowerCase();
-        while (!Util.laysInArray(type, list)) {
+        while (!Util.containsIgnoreCase(type, list)) {
             System.out.println("You can't choose that pokemon...\nPlease choose from " + Util.arrayToString(list, "", ", ").substring(2) + "...");
             type = console.nextLine().toLowerCase();
         }
@@ -350,7 +350,7 @@ public class App {
         } else {
             System.out.print("This pokemon can evolve to " + Util.arrayToString(stageType, " or ", "") + ".\nWhich one do you want to evolve to?:");
             String answerType = console.nextLine();
-            while (!Util.laysInArray(answerType, stageType)) {
+            while (!Util.containsIgnoreCase(answerType, stageType)) {
                 System.out.print("You can only choose from " + Util.arrayToString(stageType, ",", "") + "...\nTry again: ");
                 answerType = console.nextLine();
             }
@@ -462,7 +462,7 @@ public class App {
             answer = console.nextLine();
         }
         if (answer.equalsIgnoreCase("y")) {
-            ArrayList<String> contents = Util.fileToList(preset);
+            List<String> contents = Util.fileToList(preset);
             contents.remove((index - 1) * 4);
             contents.remove((index - 1) * 4);
             contents.remove((index - 1) * 4);
@@ -491,7 +491,7 @@ public class App {
     public static boolean savePokemon(File preset, File user, Pokemon pokemon, int index) {
         assert (user.exists()) : "savePokemon - user file does not exist";
         int presetCount = Util.countFileLines(preset) / 4;
-        ArrayList<String> contents = Util.fileToList(preset);
+        List<String> contents = Util.fileToList(preset);
         String userName = Util.readFileLine(user, 1);
         String currHp = "" + pokemon.getHp();
         String name = pokemon.getName();
@@ -570,6 +570,7 @@ public class App {
                 presetFile.createNewFile();
             } catch (IOException e) {
                 System.out.println("An error occured when creating the file: " + presetFile.getName());
+                e.printStackTrace();
             }
             return false;
         } else if (presetFile.length() == 0) {
@@ -594,18 +595,19 @@ public class App {
     }
 
     /**
-     * Finds the path of the folder, where the java file this method was executed in
-     * is located
+     * Finds the path of the folder where the java file this method was executed in
+     * is located.
      *
-     * @return String with path
+     * @return String with the path
      */
     public static String getGamePath() {
-        String fileName = getFileName();
-        int nameLenght = fileName.length();
-        File folder = new File(fileName);
-        String absolutePath = folder.getAbsolutePath();
-        int pathLenght = absolutePath.length();
-        return absolutePath.substring(0, pathLenght - nameLenght - 1);
+        try {
+            File file = new File(App.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+            return file.getParentFile().getParentFile().getPath();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -658,7 +660,7 @@ public class App {
     public static File getUser(Scanner console, String[] users, String path) {
         System.out.print("Which user do you select?:\n" + Util.arrayToString(users, "\n", "--") + "\nNEW USER" + "\n\n> ");
         String user = console.nextLine();
-        while (!Util.laysInArray(user, users) && !user.equalsIgnoreCase("new user")) {
+        while (!Util.containsIgnoreCase(user, users) && !user.equalsIgnoreCase("new user")) {
             System.out.print("This user does not exist...\nTry another one: ");
             user = console.nextLine();
         }
@@ -683,7 +685,7 @@ public class App {
         System.out.print("Create a username: ");
         String username = console.nextLine();
         while (true) {
-            if (Util.laysInArray(username, users)) {
+            if (Util.containsIgnoreCase(username, users)) {
                 System.out.print("This username already exists...\nTry another one: ");
             } else if (username.equals("new user")) {
                 System.out.print("You can't use this username... \nTry another one: ");
